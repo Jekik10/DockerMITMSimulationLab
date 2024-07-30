@@ -1,0 +1,11 @@
+# Utilizza l'immagine ufficiale di Alpine
+FROM ubuntu:latest
+
+# Installa il pacchetto ping
+# RUN apt-get update && \
+#     apt-get install -y iputils && \
+#     apt-get clean && \
+#     rm -rf /var/lib/apt/lists/*
+
+# Comando per mantenere il container attivo
+CMD ["sleep", "infinity"]

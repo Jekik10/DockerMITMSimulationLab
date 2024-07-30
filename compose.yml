@@ -1,0 +1,59 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: DockerfileClient
+    networks:
+      networkClient:
+        ipv4_address: 172.20.0.2
+    privileged: true
+    
+  server:
+    build:
+      context: .
+      dockerfile: DockerfileServer
+    networks:
+      networkServer:
+        ipv4_address: 172.21.0.2
+    privileged: true
+
+  ids:
+    build:
+      context: .
+      dockerfile: DockerfileIds
+    networks:
+      networkIds:
+        ipv4_address: 172.22.0.2
+    privileged: true
+
+  router:
+    build:
+      context: .
+      dockerfile: DockerfileRouter
+    networks:
+      networkClient:
+        ipv4_address: 172.20.0.3
+      networkServer:
+        ipv4_address: 172.21.0.3
+      networkIds:
+        ipv4_address: 172.22.0.3
+    privileged: true # Required for iptables
+    cap_add:
+      - NET_ADMIN
+
+networks:
+  networkClient:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+  networkServer:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+  networkIds:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
