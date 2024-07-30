@@ -8,7 +8,7 @@ fi
 #copia il contenuto del file in suricata.rules
 cp $1 suricata.rules
 
-sudo modprobe ipt_TEE
+# sudo modprobe ipt_TEE # oppure xt_TEE
 docker compose up --build -d
 
 rm suricata.rules
