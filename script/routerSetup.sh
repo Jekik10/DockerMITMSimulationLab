@@ -15,6 +15,8 @@ iptables -t nat -A POSTROUTING -s 172.21.0.0/24 -d 172.20.0.2 -j MASQUERADE
 tc qdisc add dev eth0 ingress
 tc filter add dev eth0 parent ffff: protocol ip u32 match ip src 172.20.0.2 action mirred egress mirror dev eth1
 
+# Aggiungere regole traffic control per "pulire" il traffico verso l'ids  
+
 
 
 # Mantieni il container in esecuzione

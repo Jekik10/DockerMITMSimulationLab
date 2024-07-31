@@ -13,7 +13,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copia lo script di configurazione del router nel container
-COPY routerSetup.sh /bin
+COPY script/routerSetup.sh /bin
 
 # Rende eseguibile lo script
 RUN chmod 755 /bin/routerSetup.sh

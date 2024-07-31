@@ -11,7 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copia lo script di configurazione dell ids nel container
-COPY idsSetup.sh /bin
+COPY script/idsSetup.sh /bin
 
 # Copia le regole di suricata
 COPY suricata.rules /var/lib/suricata/rules/suricata.rules
