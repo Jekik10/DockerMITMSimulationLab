@@ -4,7 +4,11 @@ FROM debian:stable-slim
 
 # Aggiorna i pacchetti e installa solo i necessari
 RUN apt-get update && \
-    apt-get install -y iptables net-tools kmod && \
+    apt-get install -y \
+    iptables \
+    net-tools \
+    iproute2 \
+    tcpdump && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
