@@ -4,9 +4,12 @@ FROM ubuntu:latest
 # Installa il pacchetto ping
 RUN apt-get update && \
     apt-get install -y \
-    inetutils-ping && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    inetutils-ping \
+    vim \
+    netcat-traditional 
+    # && \
+    # apt-get clean && \
+    # rm -rf /var/lib/apt/lists/*
 
 # Comando per mantenere il container attivo
 CMD ["sleep", "infinity"]

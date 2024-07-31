@@ -5,9 +5,12 @@ FROM ubuntu:latest
 RUN apt-get update && \
     apt-get install -y \
     net-tools \
-    tcpdump && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    netcat-traditional \
+    vim \
+    tcpdump 
+    # && \
+    # apt-get clean && \
+    # rm -rf /var/lib/apt/lists/*
 
 # Comando per mantenere il container attivo
 CMD ["sleep", "infinity"]
