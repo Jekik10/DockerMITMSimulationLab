@@ -4,22 +4,21 @@ FROM ubuntu:latest
 # Installa il pacchetti necessari
 RUN apt-get update && \
     apt-get install -y \
-    tcpdump \
+    suricata \
+    # Non essenziali
     jq \
-    vim \
-    suricata && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    tcpdump \
+    vim
 
 # Copia lo script di configurazione dell ids nel container
-COPY script/idsSetup.sh /bin
+COPY script/ids-entrypoint.sh /usr/local/bin/
 
 # Copia le regole di suricata
 COPY suricata.rules /var/lib/suricata/rules/suricata.rules
 
 # Rende eseguibile lo script
-RUN chmod 755 /bin/idsSetup.sh
+RUN chmod +x /usr/local/bin/ids-entrypoint.sh
 
-# Esegui e poi rimuovi lo script all'avvio del container
-# CMD ["/bin/sh", "-c", "/bin/idsSetup.sh && rm /bin/idsSetup.sh && sleep infinity"]
-CMD ["/bin/sh", "-c", "/bin/idsSetup.sh && sleep infinity"]
+# Esegui lo script all'avvio
+ENTRYPOINT ["/usr/local/bin/ids-entrypoint.sh"]
+CMD ["sleep", "infinity"]

@@ -1,28 +1,21 @@
 # Utilizza l'immagine ufficiale di Debian stable slim
 FROM debian:stable-slim
-# FROM debian:stable
 
 # Aggiorna i pacchetti e installa solo i necessari
 RUN apt-get update && \
     apt-get install -y \
     iptables \
-    net-tools \
     iproute2 \
+    # Non essenziali
+    net-tools \
     vim \
-    tcpdump && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    tcpdump \
+    iputils-ping
 
-# Copia lo script di configurazione del router nel container
-COPY script/routerSetup.sh /bin
+# Script di avvio
+COPY script/router-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/router-entrypoint.sh
 
-# Rende eseguibile lo script
-RUN chmod 755 /bin/routerSetup.sh
-
-# Esegui lo script all'avvio del container
-
-CMD ["/bin/sh", "-c", "/bin/routerSetup.sh && rm /bin/routerSetup.sh && sleep infinity"]
-
-# Eseguo routerSetup.sh durante la fase di build perchè Docker utilizza un 
-# ambiente isolato che non influisce sulle impostazioni di rete del sistema 
-# host o dei container runtime
+# Esegui lo script all'avvio
+ENTRYPOINT ["/usr/local/bin/router-entrypoint.sh"]
+CMD ["sleep", "infinity"]
