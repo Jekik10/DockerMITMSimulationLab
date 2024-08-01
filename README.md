@@ -10,7 +10,7 @@ Run the `run.sh` script, passing the file containing the Suricata rules as a par
 
 You can provide customized Ansible playbooks for clients and servers as optional parameters. 
 The names of the playbooks are arbitrary, but make sure to use the `.yml` extension. 
-To write the playbooks, carefully read these [Notes for using custom Ansible playbooks](https://github.com/Jekik10/DockerMITMSimulationLab/edit/main/README.md#notes-for-using-custom-ansible-playbooks).
+To write the playbooks, carefully read these [Notes for using custom Ansible playbooks](https://github.com/Jekik10/DockerMITMSimulationLab#notes-for-using-custom-ansible-playbooks).
 
 ### Example usage:
 ```
