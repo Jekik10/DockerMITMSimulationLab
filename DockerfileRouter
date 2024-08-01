@@ -1,21 +1,19 @@
-# Utilizza l'immagine ufficiale di Debian stable slim
 FROM debian:stable-slim
 
-# Aggiorna i pacchetti e installa solo i necessari
 RUN apt-get update && \
     apt-get install -y \
     iptables \
     iproute2 \
-    # Non essenziali
+    # Non-essential packages
     net-tools \
     vim \
     tcpdump \
     iputils-ping
 
-# Script di avvio
+# Entrypoint script
 COPY script/router-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/router-entrypoint.sh
 
-# Esegui lo script all'avvio
+# Entrypoint
 ENTRYPOINT ["/usr/local/bin/router-entrypoint.sh"]
 CMD ["sleep", "infinity"]

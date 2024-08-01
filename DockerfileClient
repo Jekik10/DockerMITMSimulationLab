@@ -1,23 +1,21 @@
-# Utilizza l'immagine ufficiale di Alpine
 FROM ubuntu:latest
 
-# Installa il pacchetto ping
 RUN apt-get update && \
     apt-get install -y \
     iproute2 \
     ansible \
-    # Non essenziali
+    # Non-essential packages
     inetutils-ping \
     vim \
     netcat-traditional 
 
-# Copia la configurazione del server e esegue solo se non è vuota
+# Copies the server configuration
 COPY client-config.yml /.ansible/client-config.yml
 
-# Script di avvio
+# Entrypoint script
 COPY script/client-entrypoint.sh /usr/local/bin/client-entrypoint.sh
 RUN chmod +x /usr/local/bin/client-entrypoint.sh
 
-# Esegui lo script all'avvio
+# Entrypoint
 ENTRYPOINT ["/usr/local/bin/client-entrypoint.sh"]
 CMD ["sleep", "infinity"]

@@ -1,24 +1,20 @@
-# Utilizza l'immagine ufficiale di Alpine
 FROM ubuntu:latest
 
-# Installa il pacchetti necessari
 RUN apt-get update && \
     apt-get install -y \
     suricata \
-    # Non essenziali
+    # Non-essential packages
     jq \
     tcpdump \
     vim
 
-# Copia lo script di configurazione dell ids nel container
-COPY script/ids-entrypoint.sh /usr/local/bin/
-
-# Copia le regole di suricata
+# Copies Suricata rules
 COPY suricata.rules /var/lib/suricata/rules/suricata.rules
 
-# Rende eseguibile lo script
+# Entrypoint script
+COPY script/ids-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/ids-entrypoint.sh
 
-# Esegui lo script all'avvio
+# Entrypoint
 ENTRYPOINT ["/usr/local/bin/ids-entrypoint.sh"]
 CMD ["sleep", "infinity"]

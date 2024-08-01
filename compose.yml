@@ -44,7 +44,7 @@ services:
         ipv4_address: 172.21.0.3
       networkIds:
         ipv4_address: 172.22.0.3
-    privileged: true # Required for iptables
+    privileged: true 
     cap_add:
       - NET_ADMIN
 
