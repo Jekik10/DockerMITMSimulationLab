@@ -1,8 +1,13 @@
+volumes:
+  ansible_configs:
+
 services:
   client:
     build:
       context: .
       dockerfile: DockerfileClient
+    volumes:
+      - ./ansible_configs:/ansible_configs
     networks:
       networkClient:
         ipv4_address: 172.20.0.2
@@ -12,6 +17,8 @@ services:
     build:
       context: .
       dockerfile: DockerfileServer
+    volumes:
+      - ./ansible_configs:/ansible_configs
     networks:
       networkServer:
         ipv4_address: 172.21.0.2
