@@ -30,6 +30,16 @@ The names of the playbooks are arbitrary, but make sure to use the `.yml` extens
 >[!NOTE]
 >Suricata logs directory can be found in the IDS container at `/var/log/suricata`
 
+>[!NOTE]
+>A suricata.yaml file is placed in the `other_configs` directory. It can be customized.
+>Default address groups are:
+>```
+>  address-groups:
+>    CLIENT_NET: "[172.20.0.0/24]"
+>    SERVER_NET: "[172.21.0.0/24]"
+>    HOME_NET: "[172.22.0.0/24]" #IDS_NET
+>```
+
 ## Architecture
 
 The router mirrors incoming traffic on `eth0`, towards the IDS, using [tc](https://man7.org/linux/man-pages/man8/tc.8.html) with the following rules:
