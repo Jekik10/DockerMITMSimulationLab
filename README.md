@@ -69,16 +69,17 @@ An example script is already located at `/ansible_configs/example.sh`. It simply
 A playbook to execute that script could look like:
 ```yaml
 ---
-- name: Run the test.sh script from the Docker volume
+- name: Run example.sh from docker volume
   hosts: localhost
   connection: local
   become: yes
   tasks:
-    - name: Set x privileges for test.sh
-      ansible.builtin.command: chmod +x /ansible_configs/test.sh
+    - name: Set x privileges for example.sh
+      ansible.builtin.command: chmod +x /ansible_configs/example.sh
 
-    - name: Run test.sh
-      ansible.builtin.command: /ansible_configs/test.sh
+    - name: Esegui lo script example.sh
+      ansible.builtin.command: /ansible_configs/example.sh
+
 
 ```
 ### Suricata

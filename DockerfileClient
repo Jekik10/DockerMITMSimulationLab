@@ -13,7 +13,7 @@ RUN apt-get update && \
 COPY client-config.yml /.ansible/client-config.yml
 
 # Entrypoint script
-COPY script/client-entrypoint.sh /usr/local/bin/client-entrypoint.sh
+COPY scripts/client-entrypoint.sh /usr/local/bin/client-entrypoint.sh
 RUN chmod +x /usr/local/bin/client-entrypoint.sh
 
 # Entrypoint

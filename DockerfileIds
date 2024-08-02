@@ -11,8 +11,11 @@ RUN apt-get update && \
 # Copies Suricata rules
 COPY suricata.rules /var/lib/suricata/rules/suricata.rules
 
+# Copies the Suricata configuration
+COPY other_configs/suricata.yaml /etc/suricata/suricata.yaml
+
 # Entrypoint script
-COPY script/ids-entrypoint.sh /usr/local/bin/
+COPY scripts/ids-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/ids-entrypoint.sh
 
 # Entrypoint
