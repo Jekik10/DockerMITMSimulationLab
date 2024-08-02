@@ -8,12 +8,29 @@ Run the `run.sh` script, passing the file containing the Suricata rules as a par
 ./run.sh path-to-suricata-rules
 ```
 
+>[!IMPORTANT]
+>The rules file should follow the Suricata rules syntax.
+
 You can provide customized Ansible playbooks for clients and servers as optional parameters. 
 The names of the playbooks are arbitrary, but make sure to use the `.yml` extension. 
 > [!Warning]
 > To write the playbooks, carefully read these [Notes for using custom Ansible playbooks](https://github.com/Jekik10/DockerMITMSimulationLab#notes-for-using-custom-ansible-playbooks).
 
-### Example usage:
+### Suricata
+
+You can specify the Suricata configuration by placing a `suricata.yaml` file in the `other_configs` directory. It will be copied to `/etc/suricata/suricata.yaml` in the IDS container.
+
+>[!NOTE]
+>A `suricata.yaml` file is already placed in the `other_configs` directory. It can be customized.
+>Default address groups are:
+>```yaml
+>  address-groups:
+>    CLIENT_NET: "[172.20.0.0/24]"
+>    SERVER_NET: "[172.21.0.0/24]"
+>    HOME_NET: "[172.22.0.0/24]" #IDS_NET
+>```
+
+## Example usage:
 ```
 ./run.sh rules client-playbook.yml server-playbook.yml
 ```
@@ -27,21 +44,7 @@ The names of the playbooks are arbitrary, but make sure to use the `.yml` extens
 >./run.sh rules none server-playbook.yml
 >```
 
->[!NOTE]
->Suricata logs directory can be found in the IDS container at `/var/log/suricata`
-
->[!NOTE]
->A suricata.yaml file is placed in the `other_configs` directory. It can be customized.
->Default address groups are:
->```yaml
->  address-groups:
->    CLIENT_NET: "[172.20.0.0/24]"
->    SERVER_NET: "[172.21.0.0/24]"
->    HOME_NET: "[172.22.0.0/24]" #IDS_NET
->```
-
 ## Architecture
-
 The router mirrors incoming traffic on `eth0`, towards the IDS, using [tc](https://man7.org/linux/man-pages/man8/tc.8.html) with the following rules:
 ```
 tc qdisc add dev eth0 ingress
@@ -93,7 +96,7 @@ A playbook to execute that script could look like:
 
 ```
 ### Suricata
-The rule file should follow the Suricata rules syntax. An example of a rule file that matches both TCP and UDP packets is:
+The rules file should follow the Suricata rules syntax. An example of a rule file that matches both TCP and UDP packets is:
 ```
 alert tcp any any -> any any (msg:"TCP Echo Request Detected"; sid:1000001; rev:1;)
 alert udp any any -> any any (msg:"UDP Echo Request Detected"; sid:1000002; rev:1;)
