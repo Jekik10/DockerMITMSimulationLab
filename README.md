@@ -33,7 +33,7 @@ The names of the playbooks are arbitrary, but make sure to use the `.yml` extens
 >[!NOTE]
 >A suricata.yaml file is placed in the `other_configs` directory. It can be customized.
 >Default address groups are:
->```
+>```yaml
 >  address-groups:
 >    CLIENT_NET: "[172.20.0.0/24]"
 >    SERVER_NET: "[172.21.0.0/24]"
