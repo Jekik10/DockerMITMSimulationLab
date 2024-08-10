@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:latest
 
 RUN apt-get update && \
     apt-get install -y \
@@ -6,10 +6,11 @@ RUN apt-get update && \
     # Non-essential packages
     jq \
     tcpdump \
-    vim
+    vim\
+    neofetch
 
 # Copies Suricata rules
-COPY suricata.rules /var/lib/suricata/rules/suricata.rules
+COPY suricata.rules /etc/suricata/rules/suricata.rules
 
 # Copies the Suricata configuration
 COPY other_configs/suricata.yaml /etc/suricata/suricata.yaml
