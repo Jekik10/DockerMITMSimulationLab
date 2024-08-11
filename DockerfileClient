@@ -9,7 +9,7 @@ RUN apt-get update && \
     vim \
     netcat-traditional 
 
-# Copies the server configuration
+# Copies the client configuration
 COPY client-config.yml /.ansible/client-config.yml
 
 # Entrypoint script

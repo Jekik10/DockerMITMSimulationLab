@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Executes the playbook from the Docker volume if it's not empty
+# Executes the playbook if it's not empty
 if [ -s /.ansible/client-config.yml ]; then
   ansible-playbook /.ansible/client-config.yml
 fi
